@@ -1,0 +1,18 @@
+# https://github.com/github/gitignore/blob/f273474b975f0f2888750a854572562db6de318e/CMake.gitignore
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# venv, data, bin
+/bin/
+# could be a symlink:
+/data
+/venv/
