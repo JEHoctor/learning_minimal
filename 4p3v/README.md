@@ -1,3 +1,57 @@
+## Updated Readme
+
+I've added new information at the top of this readme to document what I've learned while replicating the results in this repo/paper. The original readme is preserved at the bottom of this file.
+
+Replication Steps
+-----------------
+
+## Operating System and Packages
+
+The original readme suggests using apt to install the Eigen dependency. Ideally, this dependency would be managed by CMake, or at least have a specific version number that it depends on. For now, we can get an appropriate version by using a recent version of Ubuntu or Debian, or maybe even WSL2. I'm using Debian 11, and as of 2022-06-25, I can build the code without issue. For future reference, Debian 11 seems to install Eigen version 3.3.9.
+
+I recommend installing build-essential (for make and gcc) at the same time, and python3-venv, which we will need later:
+```bash
+$ sudo apt install build-essential libeigen3-dev python3-venv
+```
+
+## CMake
+
+I like to use the latest version of CMake available from Kitware, and install it via shell script. In this case, I downloaded version 3.23.2. If you have issues with a later version, try downgrading to this one. You can find the files for this release [here](https://github.com/Kitware/CMake/releases/tag/v3.23.2). Old CMake language features are occasionally obsoleted.
+
+Usually, I would recommend running `ccmake` in place of `cmake`, but there really isn't anything interesting to configure for this code, so just run the commands suggested in the original readme to build the C code:
+
+```bash
+$ cmake -DCMAKE_BUILD_TYPE=Release ."
+$ make
+```
+
+## Python and Packages
+
+Now, you need to create a python virtual environment, activate it, and install the python dependencies. The authors did not provide a `requirements.txt` file, but the only dependencies are numpy and pytorch, so I've contributed a simple one that is suitable. I installed torch without GPU support, but it shouldn't be too hard to modify the requirments.txt to install the GPU-accellerated version instead.
+
+```bash
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+```
+
+## Data
+
+The last thing to do before running the code is to download the data. I thought that the original readme was a little vague about the intended way to organize the data, so I've provided a shell script to download the data and arrange it the way I did. It takes about 11GB to store the uncompressed data. The shell script downloads archived data and deletes the archives after extracting the data, so the peak disk usage during this process is probably less than 17GB.
+
+```bash
+$ ./download_data.sh
+```
+
+## To be continued...
+
+I will write about the next steps soon...
+
+Original Readme
+===============
+
+Everything below this point is the original readme file.
+
 LHC TRAINING AND TESTING PIPELINE 4p3v
 ======================================
 
